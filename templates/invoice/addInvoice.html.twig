@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello InvoiceController!{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+
+        <div class="alert alert-secondary d-flex justify-content-center fw-bold" role="alert">
+            <div class="row">
+                Add a new Invoice
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                {{ form_start(form) }}
+                <div class="row alert alert-success">
+                    <span>Invoice Number: {{ invoiceNumber }}</span>
+                </div>
+
+                <div class="row invoiceLines d-flex align-items-center" id="ivLines"
+                     data-index="{{ form.invoiceLines|length > 0 ? form.invoiceLines|last.vars.name + 1 : 0 }}"
+                     data-prototype="{{ form_widget(form.invoiceLines.vars.prototype)|e('html_attr') }}">
+                </div>
+
+                <div class="row mt-3 d-flex justify-content-around">
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-success btn-lg">Valider</button>
+                    </div>
+                    <div class="col-4">
+                        <button type="button" class="btn btn-warning btn-lg add_item_link" data-collection-holder-class="invoiceLines">More invoice lines</button>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('invoice') }}
+{% endblock %}
